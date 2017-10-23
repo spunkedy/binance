@@ -18,10 +18,12 @@ import collections
 class BinanceSpotAPI:
 
     def __init__(self,url,apikey,secretkey, recv_window=None):
+        self.dbg = True
         self.__url = url
         self.__apikey = apikey
         self.__secretkey = secretkey
         self.__recv_window = recv_window #default: 5000(ms)
+        
     
     def set_recv_window(self, recv_window):
         self.__recv_window = recv_window
@@ -39,19 +41,21 @@ class BinanceSpotAPI:
         '''internal http function(As a query string)'''
         if sign == True:
             self.__signature(params)
-        headers = {"X-MBX-APIKEY": self.__apikey}
-        print("HHHE:0====>", params)
-        #try:
-        conn = http.client.HTTPSConnection(self.__url, timeout=10)
-        temp_params = urllib.parse.urlencode(params)
-        conn.request("GET", resource + temp_params, None, headers)
-        response = conn.getresponse()
-        data = response.read().decode('utf-8')
-        params.clear()
-        conn.close()
-#        except:
-#            print("_do_http_func failed")
-#            return None
+        
+        if self.dbg: print("__do_http_func:params=", params)
+        
+        try:
+            conn = http.client.HTTPSConnection(self.__url, timeout=10)
+            headers = {"X-MBX-APIKEY": self.__apikey}
+            temp_params = urllib.parse.urlencode(params)
+            conn.request("GET", resource + temp_params, None, headers)
+            response = conn.getresponse()
+            data = response.read().decode('utf-8')
+            params.clear()
+            conn.close()
+        except:
+            print("_do_http_func failed")
+            return None
         
         try:
             return json.loads(data)
@@ -259,5 +263,6 @@ class BinanceSpotAPI:
         return self.http_get(THIS_RESOURCE,params, sign=True)
         
     #Deposit & Withdraw
+    '''TODO ...'''
     
         

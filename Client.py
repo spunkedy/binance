@@ -24,8 +24,8 @@ spotHandle = BinanceSpotAPI('www.binance.com',apikey,secretkey)
 #print (u"AllPrice")
 #print (spotHandle.all_price())
 
-#print (u"Price")
-#print (spotHandle.price())
+print (u"Price")
+print (spotHandle.price("ETHBTC"))
 #
 #print (u"price:")
 #print (spotHandle.price("ETHBTC"))
@@ -42,8 +42,8 @@ spotHandle = BinanceSpotAPI('www.binance.com',apikey,secretkey)
 #print (u'BookTicker')
 #print (spotHandle.book_tickers("ETHBTC"))
 #
-print (u"order_new:")
-print (spotHandle.order_new("MDABTC","SELL","LIMIT","GTC",100,0.0003))
+#print (u"order_new:")
+#print (spotHandle.order_new("MDABTC","SELL","LIMIT","GTC",100,0.0003))
 
 #print (u"order_query:")
 ##print (spotHandle.order_query("MDABTC", 168083))
