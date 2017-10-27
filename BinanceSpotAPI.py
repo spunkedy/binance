@@ -71,6 +71,12 @@ class BinanceSpotAPI:
         
     def http_delete(self, resource,params):
         return self.__do_http_func(resource, "DELETE", params,True)
+        
+    def http_put(self, resource,params):
+        return self.__do_http_func(resource, "PUT", params,True)
+    
+    def set_recv_window(self, recv_window):
+        self.__recv_window = recv_window
     
     '''General endpoints:'''
     
@@ -166,7 +172,7 @@ class BinanceSpotAPI:
         
     '''Account endpoints:'''
     
-    def order_new(self, symbol,side,type,timeInforce,quantity,price,newClinentOrderId=None,stopPrice=None,icebergQty=None,recvWindow=None):        
+    def order_new(self, symbol,side,type,timeInforce,quantity,price,newClientOrderId=None,stopPrice=None,icebergQty=None,recvWindow=None):        
         '''Send in a new order'''
         THIS_RESOURCE = "/api/v3/order?"
         params = collections.OrderedDict()
@@ -177,8 +183,8 @@ class BinanceSpotAPI:
         params['quantity'] = quantity
         params['price'] = price
 
-        if newClinentOrderId:
-            params['newClinentOrderId'] = newClinentOrderId
+        if newClientOrderId:
+            params['newClientOrderId'] = newClientOrderId
         if stopPrice:
             params['stopPrice'] = stopPrice
         if icebergQty:
@@ -250,7 +256,7 @@ class BinanceSpotAPI:
                 return balance_t
         return None
  
-    def account_trade_list(self,symbol,limit=None,fromId=None,recvWindow=None):
+    def account_trade_list(self,symbol,limit=None,fromId=None):
         '''Get trades for a specific account and symbol.'''
         THIS_RESOURCE = "/api/v3/myTrades?"
         params = collections.OrderedDict()
@@ -263,6 +269,19 @@ class BinanceSpotAPI:
         return self.http_get(THIS_RESOURCE,params, sign=True)
         
     #Deposit & Withdraw
-    '''TODO ...'''
+#    def withdraw_history(self,asset=None,status=None,startTime=None,endTime=None):
+#        '''Fetch withdraw history.'''
+#        THIS_RESOURCE = "/wapi/v1/getWithdrawHistory.html?"
+#        params = collections.OrderedDict()
+#        
+#        if asset:
+#            params['asset'] = asset
+#        if status:
+#            params['status'] = status
+#        if startTime:
+#            params['startTime'] = startTime
+#        if endTime:
+#            params['endTime'] = endTime
+#
+#        return self.http_post(THIS_RESOURCE,params)
     
-        
