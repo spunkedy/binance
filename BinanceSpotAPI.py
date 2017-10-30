@@ -24,10 +24,6 @@ class BinanceSpotAPI:
         self.__secretkey = secretkey
         self.__recv_window = recv_window #default: 5000(ms)
         
-    
-    def set_recv_window(self, recv_window):
-        self.__recv_window = recv_window
-        
     def __signature(self, params={}):
         '''set recvWindow/timestamp and signing the payload'''
         if self.__recv_window:
